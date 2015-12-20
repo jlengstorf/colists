@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>CoLists</title>
+
+    <!--
+      ## Fonts
+      We're using Google Fonts to keep things simple (and free).
+    -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Rock+Salt">
+  </head>
+  <body>
+
+    <noscript>
+      <p style="color: red">
+        This app requires JavaScript for proper functionality. Since JavaScript
+        is disabled for you, this app is pretty much useless right now. Please
+        either enable JavaScript or try a different browser that supports
+        JavaScript.
+      </p>
+    </noscript>
+
+    <header class="header">
+      <h1 class="header__list-name">My List of Things</h1>
+    </header>
+
+    <main class="app">
+
+      <div class="app__create create">
+        <form class="create__form">
+          <label class="create__input-group">
+            <span class="create__label sr-only">List Item</span>
+            <input id="itemText" name="itemText" type="text"
+                   placeholder="Add a list item" autoComplete="off"
+                   class="create__input create__input--text" />
+          </label>
+          <input id="itemId" name="itemId" type="hidden"
+                 class="create__input create__input--hidden" />
+          <input id="itemComplete" name="itemComplete" type="hidden"
+                 class="create__input create__input--hidden" />
+        </form>
+      </div>
+
+      <div class="app__items items">
+        <ul class="items__list items__list--loading"></ul>
+      </div>
+
+    </main>
+
+    <footer class="footer">
+      <p class="footer__credits">
+        Built with &hearts; by
+        <a href="https://github.com/jlengstorf"
+           class="footer__credit-link">Jason Lengstorf</a>
+      </p>
+    </footer>
+
+    <!-- scripts and styles are bundled using webpack -->
+    <script src="./assets/vendors.js"></script>
+    <script src="./assets/app.min.js"></script>
+  </body>
+</html>
