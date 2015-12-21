@@ -4,7 +4,49 @@ CoLists is a simple app to demonstrate the concept of real-time collaboration wh
 
 By implementing [Socket.IO](https://socket.io), we can maintain a unidirectional data flow in the app, even with multiple users making changes to the app data at the same time.
 
-## Important Notes
+## Quick Start
+
+    # clone the repo
+    git clone git@github.com:jlengstorf/colists.git
+
+    # navigate into the new folder
+    cd colists/
+
+    # install dependencies
+    npm install
+
+    # start the server
+    npm start
+
+The app should now be available at `http://localhost:3001`.
+
+## Client-Side App
+
+In order to avoid a huge number of dependencies, this app rolls its own framework. (See the [notes](#notes) for more information.)
+
+For production, the only dependencies are [`debug`](https://www.npmjs.com/package/debug) (which is only needed for the demo), [Immutable.js](http://facebook.github.io/immutable-js/), [`events`](https://www.npmjs.com/package/events), and [Socket.IO](http://socket.io/).
+
+The app is built with [webpack](https://webpack.github.io) using [PostCSS](https://github.com/postcss/postcss) and [Babel](https://babeljs.io/). This allows us to use [ES2015 syntax](https://babeljs.io/docs/learn-es2015/) in JavaScript and [next-generation CSS](http://cssnext.io/) (plus Sass-like functionality: [nested rules](https://github.com/postcss/postcss-nested), [enhanced `@import`](https://github.com/postcss/postcss-import), and [simpler variable syntax](https://github.com/postcss/postcss-simple-vars)).
+
+## Server
+
+The server in this app only exists for three reasons:
+
+1. Relay peer messages using Socket.IO
+2. Maintain a persistent data store for sharing lists using MongoDB
+3. Route all requests to `index.html`[^requests]
+
+[^requests]:
+    The only exceptions are the webpack bundles for app JS and CSS.
+
+To accomplish this, the server uses [`mongodb`](https://www.mongodb.org/) and [`socket.io`](https://socket.io).
+
+The data store performs basic logic to merge existing data with new data sent from a connected user. It attempts to be smart about updates by only making changes when a list has been modified.
+
+This implementation leaves a lot to be desired in terms of managing race conditions. Given the simple nature of the app, I _think_ there won't be any issues, but we'll cross that bridge when we come to it.
+
+
+## Important Notes {#notes}
 
 ### This demo uses a simplified, roll-your-own framework.
 
