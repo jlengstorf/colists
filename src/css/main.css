@@ -1,0 +1,421 @@
+/*
+ * # main.css
+ */
+
+/* ------------------------------------------------------------------------- */
+
+/*
+ * ## Fonts
+ * We're using Google Fonts to keep things simple (and free).
+ */
+
+@import url(https://fonts.googleapis.com/css?family=Rock+Salt|Open+Sans:400,400italic);
+
+
+/* ------------------------------------------------------------------------- */
+
+/*
+ * ## Style Variables
+ */
+
+/*
+ * ### Colors
+ */
+$color-bg:     #fdfcf9;
+$color-light:  #f2ebbf;
+$color-dark:   #5c4b51;
+$color-accent: #8ceeb2;
+$color-action: #f3b562;
+$color-warn:   #f06060;
+
+/*
+ * ### Typography
+ */
+
+/*
+ * #### Headlines
+ */
+$type-headline-font-family: 'Rock Salt', cursive;
+
+/*
+ * #### Body Font
+ */
+$type-body-font-family: sans-serif;
+
+/*
+ * ## Measurements
+ */
+
+/*
+ * ### Borders
+ */
+$border-radius: 0.5rem;
+
+$border-width: 1px;
+$border-style: solid;
+$border-color: color( $color-dark tint(75%) );
+
+/* We create a shorthand here so we can reach Maximum Laziness™. */
+$border-default: $border-width $border-style $border-color;
+
+/*
+ * ## Transitions and Animations
+ */
+$transition-speed: 200ms;
+$transition-easing: linear;
+
+
+/* ------------------------------------------------------------------------- */
+
+/*
+ * ## Site-Wide Defaults
+ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+* + * {
+  margin-top: 1rem;
+}
+
+/*
+ * Hide content, but keep it accessible to screen readers.
+ * @see http://a11yproject.com/posts/how-to-hide-content/
+ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(1px,1px,1px,1px);
+  border: 0;
+}
+
+body {
+  padding: 1em;
+  background-color: $color-bg;
+  color: color( $color-dark tint(10%) );
+  font-family: 'Open Sans', sans-serif;
+}
+
+.header,.app,.footer {
+  display: block;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* ------------------------------------------------------------------------- */
+
+/*
+ * ## Header
+ */
+
+.header {
+
+  &__list-name {
+    color: $color-dark;
+    font-family: $type-headline-font-family;
+    font-size: 2rem;
+    line-height: 2;
+    text-align: center;
+    text-rendering: optimizeLegibility;
+    text-shadow: 2px 2px 0 $color-light;
+  }
+
+}
+
+
+/* ------------------------------------------------------------------------- */
+
+/*
+ * ## Main App
+ */
+
+.app {
+
+}
+
+/*
+ * ### New Item Creation Form
+ */
+.create {
+  padding: 1rem;
+  background: $color-action;
+  border-radius: $border-radius;
+
+  &__input {
+    width: 100%;
+    margin: 0;
+    padding: 0.75rem 1rem;
+    border: $border-width $border-style color( $color-action shade(5%) );
+    border-radius: $border-radius;
+    font-size: 1.625rem;
+  }
+}
+
+/*
+ * ### List of Items
+ */
+.items {
+  margin-top: 2rem;
+
+  &__list {
+    position: relative;
+    z-index: 1;
+    min-height: 3rem;
+    padding: 0;
+    list-style: none;
+
+    &--loading {
+
+      &::before,&::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 1rem;
+        height: 1rem;
+        animation: calc( $transition-speed * 6 ) infinite loader ease-in-out;
+        background-color: transparent;
+        border: $border-width $border-style transparent;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+      }
+
+      &::before {
+        animation-delay: calc( $transition-speed * 3 );
+      }
+
+      .items__item {
+        display: none;
+      }
+    }
+
+    &:not(&--loading):empty {
+      &::before {
+        content: 'There are no items in your list. Add one above!';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: color( $color-dark tint(50%) );
+        font-size: 0.75rem;
+        font-style: italic;
+      }
+    }
+  }
+
+}
+
+@keyframes loader {
+  0% {
+    width: 0.125rem;
+    height: 0.125rem;
+    background-color: color( $color-accent alpha(75%) );
+    border-color: color( $color-action alpha(50%) );
+  }
+
+  100% {
+    width: 2rem;
+    height: 2rem;
+    background-color: color( $color-accent alpha(0%) );
+    border-color: color( $color-action alpha(5%) );
+  }
+}
+
+/*
+ * ### Individual Items
+ */
+.item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 3.5rem;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  transform: scaleY(1);
+  transform-origin: top;
+  transition: $transition-speed all $transition-easing;
+
+  &__text,&__complete,&__delete {
+    margin-top: 0;
+  }
+
+  &__text {
+    flex: 20;
+    order: 2;
+    min-width: 80%;
+    margin: 0.25rem 0;
+    padding: 1rem;
+    background-color: color( $color-dark tint(90%) );
+    border-radius: $border-radius;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre;
+    transition: calc( $transition-speed / 2 ) all $transition-easing;
+
+    &::before,&::after {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: $transition-speed all $transition-easing;
+      background: $color-dark;
+      border-color: color( $color-dark shade(10%) );
+      border-width: $border-width;
+      border-style: $border-style;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &::before {
+      content: 'TIP: Double-click an item to edit.';
+      padding: 0.5rem;
+      border-radius: $border-radius;
+      color: $color-bg;
+      font-size: 0.5rem;
+    }
+
+    &::after {
+      width: 0.25rem;
+      height: 0.25rem;
+      border-top: 0;
+      border-left: 0;
+      transform: translate(-50%, 0.125rem) rotate(45deg);
+    }
+
+    &:hover {
+      &::before,&::after {
+        opacity: 1;
+        bottom: 110%;
+      }
+    }
+  }
+
+  &__complete,&__delete {
+    flex: 1 1rem;
+    position: relative;
+    width: 1rem;
+    height: 1rem;
+    background: none;
+    border: none;
+    text-indent: -9999px;
+
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      color: $color-dark;
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1;
+      text-align: center;
+      text-indent: 0;
+      transition: $transition-speed all $transition-easing;
+    }
+
+    &:hover,&:focus {
+      outline: 0;
+
+      &::after {
+        color: $color-warn;
+      }
+    }
+  }
+
+  &__complete {
+    order: 1;
+
+    &::after {
+      content: '\2610';
+    }
+  }
+
+  &__delete {
+    order: 3;
+
+    &::after {
+      content: '\00d7';
+    }
+  }
+
+  &--completed {
+    opacity: 0.5;
+
+    .item__text {
+      color: color( $color-dark tint(50%) );
+    }
+
+    .item__complete::after {
+      content: '\2611';
+    }
+
+  }
+
+  &--edit-in-progress {
+    > * { filter: blur(2px); }
+
+    .item__text {
+      opacity: 0.25;
+    }
+
+    &::after {
+      content: 'This item is being edited.';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 0.75rem;
+    }
+  }
+
+  &--hidden {
+    height: 0;
+    opacity: 0;
+    transform: scaleY(0);
+  }
+
+}
+
+
+/* ------------------------------------------------------------------------- */
+
+/*
+ * ## Footer
+ */
+
+.footer {
+  margin-top: 2rem;
+  padding: 1rem;
+  border-top: $border-default;
+
+  &__credits {
+    color: color( $color-dark tint(60%) );
+    font-size: 0.5rem;
+    letter-spacing: 0.125rem;
+    line-height: 1;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  &__credit-link {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+}
