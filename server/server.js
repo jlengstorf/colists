@@ -9,7 +9,7 @@ const debug = require('debug')('server/server');
 
 module.exports = http.createServer((request, response) => {
   const uri = url.parse(request.url).pathname;
-  let filename = path.join(__dirname, '/public/', uri);
+  let filename = path.join(__dirname, '/../public/', uri);
 
   debug(`Requested: ${filename}`);
 
