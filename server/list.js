@@ -143,10 +143,14 @@ module.exports = socket => {
                   'SERVER_LIST_PEER_UPDATED',
                   mergedState
                 );
-              });
+
+                db.close();
+              }
+            );
 
           } else {
             debug(`No changes to list#${oldState.id}.`);
+            db.close();
           }
 
         } else {
@@ -164,11 +168,11 @@ module.exports = socket => {
                 'SERVER_LIST_PEER_UPDATED',
                 newState
               );
+
+              db.close();
             });
 
         }
-
-        db.close();
       });
     } else {
 
