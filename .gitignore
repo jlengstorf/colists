@@ -1,0 +1,3 @@
+.DS*
+*.sublime*
+node_modules
