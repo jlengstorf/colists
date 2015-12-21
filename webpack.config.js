@@ -51,7 +51,7 @@ var config = {
   output: {
     path: __dirname + '/public/assets',
     filename: '[name].min.js',
-    publicPath: '/public/assets/',
+    publicPath: '/assets/',
   },
 
   module: {
