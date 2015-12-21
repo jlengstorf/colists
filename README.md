@@ -34,10 +34,9 @@ The server in this app only exists for three reasons:
 
 1. Relay peer messages using Socket.IO
 2. Maintain a persistent data store for sharing lists using MongoDB
-3. Route all requests to `index.html`[^requests]
+3. Route all requests to `index.html`*
 
-[^requests]:
-    The only exceptions are the webpack bundles for app JS and CSS.
+* The only exceptions are the webpack bundles for app JS and CSS.
 
 To accomplish this, the server uses [`mongodb`](https://www.mongodb.org/) and [`socket.io`](https://socket.io).
 
