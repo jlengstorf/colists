@@ -4,10 +4,9 @@
   "description": "CoLists is a simple app to demonstrate the concept of real-time collaboration while using the Flux-style data flow.",
   "main": "src/index.html",
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --port 3000 --content-base=./public --history-api-fallback",
+    "start": "node server",
+    "dev": "./node_modules/.bin/webpack-dev-server --port 3000 --content-base=./public --history-api-fallback",
     "build": "BUILD_ENV=production webpack --progress --colors --optimize-minimize --optimize-dedupe",
-    "deploy": "echo \"TODO\" # NODE_ENV=production npm run build && git add dist/* && git commit -m 'build(deploy)' && git push heroku develop:master",
-    "sw": "babel src/js/service-workers/offline-caching.js -o public/sw.js --no-comments --compact true",
     "test": "jest"
   },
   "repository": {
