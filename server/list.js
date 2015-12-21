@@ -130,9 +130,12 @@ module.exports = socket => {
             // With the merged list, update the list in the database.
             db.collection('lists').updateOne(
               { id: { $eq: mergedState.id } },
-              mergedState
-            )
-              .then(result => {
+              mergedState,
+              (error, result) => {
+                if (error) {
+                  debug(error);
+                }
+
                 debug(`List#${mergedState.id} updated.`, mergedState);
 
                 // Only notify peers looking at this list.
