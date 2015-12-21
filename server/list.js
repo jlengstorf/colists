@@ -123,6 +123,10 @@ module.exports = socket => {
               mergedState.items[itemKey] = item;
             });
 
+            debug('Items merged successfully.');
+
+            debug(`mergedState.id: ${mergedState.id}`);
+
             // With the merged list, update the list in the database.
             db.collection('lists').updateOne(
               { id: { $eq: mergedState.id } },
