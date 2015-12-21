@@ -67,7 +67,7 @@ class List {
       itemsToRemove[$oldItems[key].id] = $oldItems[key];
     });
 
-    debug.log(items);
+    debug.log('Loaded items: ', items);
 
     if ('size' in items) {
 
@@ -86,7 +86,7 @@ class List {
         _addItemToList(this.$list, item);
       });
 
-      debug.maybeLog(itemsToRemove.length > 0, 'itemsToRemove after rendering', itemsToRemove);
+      debug.maybeLog(itemsToRemove.length > 0, 'itemsToRemove', itemsToRemove);
       Object.keys(itemsToRemove).forEach(key => {
         _removeItem(itemsToRemove[key]);
       });

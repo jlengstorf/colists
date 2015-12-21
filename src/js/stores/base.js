@@ -4,12 +4,13 @@ import EventEmitter from 'events';
 import io from 'socket.io-client';
 import Immutable from 'immutable';
 
-// Set up a socket
-const __socket = io(config.socket.url);
-
 // Set up debugging
 import Debugger from '../utils/debug';
 const debug = new Debugger('stores/base');
+
+// Set up a socket
+debug.log(`Connecting to socket.io at ${config.socket.url}.`);
+const __socket = io(config.socket.url);
 
 /**
  * A simplified Flux store that's heavily inspired by Flux utils ReduceStore.

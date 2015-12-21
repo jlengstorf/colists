@@ -203,10 +203,12 @@ class ListStore extends BaseStore {
   toggleItemComplete(itemID) {
     return _openAndDo((...args) => {
 
-      // We need to do three things here:
-      // 1. Change the item's status
-      // 2. Change the updated time for the item
-      // 3. Change the updated time for the list
+      /*
+       * We need to do three things here:
+       * 1. Change the item's status
+       * 2. Change the updated time for the item
+       * 3. Change the updated time for the list
+       */
       const now = Date.now();
       const newState = this.getState()
         .setIn(
